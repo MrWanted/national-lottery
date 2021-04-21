@@ -1,0 +1,27 @@
+* What is a container
+- a container is simply another process on your machine that has been isolated from all other processes on the host machine
+- 
+*Docker is a containerization platform which packages your application and all its dependencies together in the form of containers 
+  so as to ensure that your application works seamlessly in any environment, be it development, test or production
+
+* Docker container 
+- Docker containers, wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, 
+  system tools, system libraries, etc 
+- Docker containers include the application and all of its dependencies
+- Docker containers are not tied to any specific infrastructure: they run on any computer, on any infrastructure, and in any cloud.
+- Docker containers are basically runtime instances of Docker images.
+
+* Docker image
+- An image is a read-only template with instructions for creating a Docker container.
+- Docker image is the source of Docker container
+- When a user runs a Docker image, an instance of a container is created
+
+
+
+MICROSERVICES
+* is an architectural style that structures an application as a collection of services that are:
+- Highly maintainable and testable
+- Loosely coupled
+- Independently deployable
+- Organized around business capabilities
+- Owned by a small team
