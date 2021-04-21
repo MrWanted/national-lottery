@@ -15,13 +15,13 @@ public class Powerball {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String drawNumber;
+    private int drawNumber;
     private LocalDateTime drawDate;
-    private String ball1;
-    private String ball2;
-    private String ball3;
-    private String ball4;
-    private String ball5;
-    private String powerball;
+    private int ball1;
+    private int ball2;
+    private int ball3;
+    private int ball4;
+    private int ball5;
+    private int powerball;
 
 }
