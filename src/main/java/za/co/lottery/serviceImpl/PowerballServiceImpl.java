@@ -26,7 +26,7 @@ public class PowerballServiceImpl implements PowerballlService {
     @Override
     @Transactional
     public Optional<Powerball> getPowerballByDrawDate(LocalDateTime drawDate) {
-        return repository.findByDrawdate(drawDate);
+        return repository.findByDrawDate(drawDate);
     }
 
     @Override

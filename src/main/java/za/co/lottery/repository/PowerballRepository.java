@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface PowerballRepository extends JpaRepository<Powerball, Long> {
-    Optional<Powerball> findByDrawdate(LocalDateTime drawDate);
+    Optional<Powerball> findByDrawDate(LocalDateTime drawDate);
 }
