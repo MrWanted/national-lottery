@@ -31,13 +31,13 @@ public class FileProcessing {
     public Powerball getPowerball(JSONObject jsonObject) {
         Powerball powerball = new Powerball();
         powerball.setDrawDate((LocalDateTime) jsonObject.get("drawDate"));
-        powerball.setDrawNumber((int) jsonObject.get("drawNumber"));
-        powerball.setBall1((int) jsonObject.get("ball1"));
-        powerball.setBall2((int) jsonObject.get("ball2"));
-        powerball.setBall3((int) jsonObject.get("ball3"));
-        powerball.setBall4((int) jsonObject.get("ball4"));
-        powerball.setBall5((int) jsonObject.get("ball5"));
-        powerball.setPowerball((int) jsonObject.get("powerball"));
+        powerball.setDrawNumber(Integer.parseInt((String) jsonObject.get("drawNumber")));
+        powerball.setBall1(Integer.parseInt((String) jsonObject.get("ball1")));
+        powerball.setBall2(Integer.parseInt((String) jsonObject.get("ball2")));
+        powerball.setBall3(Integer.parseInt((String) jsonObject.get("ball3")));
+        powerball.setBall4(Integer.parseInt((String) jsonObject.get("ball4")));
+        powerball.setBall5(Integer.parseInt((String) jsonObject.get("ball5")));
+        powerball.setPowerball(Integer.parseInt((String) jsonObject.get("powerball")));
 
         return powerball;
     }
