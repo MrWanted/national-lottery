@@ -14,4 +14,6 @@ public class PowerballDTO {
     private int ball4;
     private int ball5;
     private int powerball;
+    // Used as input to the probability calculations
+    private int sum, average;
 }
