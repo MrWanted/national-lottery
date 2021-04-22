@@ -10,7 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class ReadJSON {
+public class FileProcessing {
     private JSONObject returnJsonAsList() {
 
         JSONParser jsonParser = new JSONParser();
