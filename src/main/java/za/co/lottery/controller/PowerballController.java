@@ -12,6 +12,7 @@ import za.co.lottery.service.FileProcessing;
 import za.co.lottery.service.PowerballlService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -68,8 +69,8 @@ public class PowerballController {
 
     @PostMapping("/persist")
     public ResponseEntity<?> persistFile() {
-        fileProcessing.returnJsonAsList().forEach(repo::saveAndFlush);
-        return ResponseEntity.ok().build();
+        final List<Powerball> powerballList = repo.saveAll(fileProcessing.returnJsonAsList());
+        return ResponseEntity.ok(powerballList);
     }
 
     private ResponseEntity<String> errorResponse() {
