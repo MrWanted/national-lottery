@@ -1,32 +1,44 @@
 package za.co.lottery.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.Data;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import za.co.lottery.model.Powerball;
+import za.co.lottery.repository.PowerballRepository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 public class FileProcessing {
 
-    private final ObjectMapper objectMapper;
+    private final PowerballRepository repository;
 
-    private static JSONObject returnJsonAsList() {
+    private  JSONObject returnJsonAsList() {
 
         JSONParser jsonParser = new JSONParser();
 
-        try (FileReader reader = new FileReader("c:\\\\projects\\\\powerball.json")) {
+        try (FileReader reader = new FileReader("./powerball-results-2015-2021.json")) {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
             List<Object> data = (List<Object>) jsonObject.get("data");
-
-            data.forEach(System.out::println);
+            final Gson gson = new GsonBuilder().create();
+            final ObjectMapper objectMapper = new ObjectMapper();
+            data.stream().map(rec -> {
+                try {
+                    return objectMapper.readValue(gson.toJson(rec), Powerball.class);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }).filter(Objects::nonNull).forEach(repository::saveAndFlush);
             return jsonObject;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -38,13 +50,14 @@ public class FileProcessing {
         return new JSONObject();
     }
 
+
     public static void main(String[] args) {
-        returnJsonAsList();
+//        returnJsonAsList();
     }
 
     public Powerball getPowerball(JSONObject jsonObject) {
         Powerball powerball = new Powerball();
-        powerball.setDrawDate((LocalDateTime) jsonObject.get("drawDate"));
+        powerball.setDrawDate((String) jsonObject.get("drawDate"));
         powerball.setDrawNumber(Integer.parseInt((String) jsonObject.get("drawNumber")));
         powerball.setBall1(Integer.parseInt((String) jsonObject.get("ball1")));
         powerball.setBall2(Integer.parseInt((String) jsonObject.get("ball2")));
