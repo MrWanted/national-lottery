@@ -56,7 +56,7 @@ public class PowerballServiceImpl implements PowerballlService {
 
     private Powerball convertDTOToPowerball(PowerballDTO dto) {
         Powerball powerball = new Powerball();
-        powerball.setDrawDate(dto.getDrawDate());
+        powerball.setDrawDate(dto.getDrawDate().toString());
         powerball.setDrawNumber(dto.getDrawNumber());
         powerball.setBall1(dto.getBall1());
         powerball.setBall2(dto.getBall2());

@@ -16,7 +16,7 @@ public class Powerball {
     private Long id;
 
     private int drawNumber;
-    private LocalDateTime drawDate;
+    private String drawDate;
     private int ball1;
     private int ball2;
     private int ball3;
