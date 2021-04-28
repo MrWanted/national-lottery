@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,11 +14,13 @@ import za.co.lottery.model.Powerball;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
+@Slf4j
 @Component
 public class FileProcessing {
 
@@ -34,14 +37,14 @@ public class FileProcessing {
                 try {
                     return objectMapper.readValue(gson.toJson(rec), Powerball.class);
                 } catch (JsonProcessingException e) {
-                    e.printStackTrace();
+                    log.error("Failed to covert file record to a proper Json", e);
                     return null;
                 }
             }).filter(Objects::nonNull).collect(Collectors.toList());
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
 }
