@@ -1,5 +1,7 @@
 package za.co.lottery.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,14 +11,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Data
 public class FileProcessing {
-    private JSONObject returnJsonAsList() {
+
+    private final ObjectMapper objectMapper;
+
+    private static JSONObject returnJsonAsList() {
 
         JSONParser jsonParser = new JSONParser();
 
         try (FileReader reader = new FileReader("c:\\\\projects\\\\powerball.json")) {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
+            List<Object> data = (List<Object>) jsonObject.get("data");
+
+            data.forEach(System.out::println);
             return jsonObject;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -26,6 +36,10 @@ public class FileProcessing {
             e.printStackTrace();
         }
         return new JSONObject();
+    }
+
+    public static void main(String[] args) {
+        returnJsonAsList();
     }
 
     public Powerball getPowerball(JSONObject jsonObject) {
