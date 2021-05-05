@@ -11,4 +11,5 @@ public interface PowerballlService {
     List<Powerball> getAllPowerballs();
     Optional<Powerball> getPowerballByDrawDate(LocalDateTime drawDate);
     Powerball saveNewPowerball(PowerballDTO powerballDTO);
+    Powerball persistFile(Iterable<Powerball> powerball);
 }
