@@ -54,6 +54,12 @@ public class PowerballServiceImpl implements PowerballlService {
         return repository.save(convertDTOToPowerball(powerballDTO));
     }
 
+    @Override
+    @Transactional
+    public Powerball persistFile(Iterable<Powerball> powerball) {
+        return (Powerball) repository.saveAll(powerball);
+    }
+
     private Powerball convertDTOToPowerball(PowerballDTO dto) {
         Powerball powerball = new Powerball();
         powerball.setDrawDate(dto.getDrawDate().toString());
