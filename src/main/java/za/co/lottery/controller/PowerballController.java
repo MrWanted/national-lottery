@@ -14,6 +14,7 @@ import za.co.lottery.service.PowerballlService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Data
 @RestController
@@ -69,8 +70,27 @@ public class PowerballController {
 
     @PostMapping("/persist")
     public ResponseEntity<?> persistFile() {
-        final List<Powerball> powerballList = repo.saveAll(fileProcessing.returnJsonAsList());
+        final List<Powerball> powerballList = repo.saveAll(fileProcessing.returnJsonAsList().stream()
+                .map(powerball -> {
+                    int sum = calc(powerball.getBall1()
+                            ,powerball.getBall2()
+                            ,powerball.getBall3()
+                            ,powerball.getBall4()
+                            ,powerball.getBall5()
+                            ,powerball.getPowerball());
+                    powerball.setSum(sum);
+                    powerball.setAverage(sum/6);
+                    return powerball;
+                }).collect(Collectors.toList()));
         return ResponseEntity.ok(powerballList);
+    }
+
+    private int calc(int ... vals){
+        int res = 0;
+        for(int val : vals){
+            res += val;
+        }
+        return res;
     }
 
     private ResponseEntity<String> errorResponse() {
