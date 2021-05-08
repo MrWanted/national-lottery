@@ -76,10 +76,9 @@ public class PowerballController {
                             ,powerball.getBall2()
                             ,powerball.getBall3()
                             ,powerball.getBall4()
-                            ,powerball.getBall5()
-                            ,powerball.getPowerball());
+                            ,powerball.getBall5());
                     powerball.setSum(sum);
-                    powerball.setAverage(sum/6);
+                    powerball.setAverage(sum/5);
                     return powerball;
                 }).collect(Collectors.toList()));
         return ResponseEntity.ok(powerballList);
